@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model USER{
+  id Int @default(autoincrement()) @id
+  username String @unique
+  email String @unique
+  password String
+}
+
+model AUCTION {
+  auctionId     Int       @id @default(autoincrement())
+  userId        Int
+  itemId        Int
+  startTime DateTime
+  endTime   DateTime
+}
+
+model ITEM {
+  itemId          Int       @id @default(autoincrement())
+  sellerId        Int
+  name            String
+  description     String
+  image           String
+  startingPrice   Float
+  maxPrice        Float
+  category        Category
+}
+
+model BID {
+  bidId         Int       @id @default(autoincrement())
+  userId        Int
+  auctionId     Int
+  itemId        Int
+  amount        Float
+  bidDateTime   DateTime
+}
+
+enum Category {
+  ELECTRONICS
+  CLOTHING
+  BOOKS
+  FURNITURE
+  SPORTS
+  OTHER
+}
+

@@ -9,8 +9,9 @@ export class AuctionController{
 
 
     @Get(':id')
-    async getAuction(@Param('id') auctionId: number): Promise<AUCTION | null>{
-        return this.auctionService.getAuction(auctionId)
+    async getAuction(@Param('id') userId: string): Promise<AUCTION[] | null>{
+        const id = parseInt(userId, 10);
+        return this.auctionService.getAuction(id)
     }
 
 

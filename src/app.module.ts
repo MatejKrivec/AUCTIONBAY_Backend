@@ -4,10 +4,11 @@ import { AppService } from './app.service';
 import { UserModule } from './User/user.module';
 import { AuctionModule } from './Auction/auction.module';
 import { BidModule } from './Bid/bid.module';
-import { ItemModule } from './Item/item.module';
+import { AuthModule } from './JWT/auth.module';
+
 
 @Module({
-  imports: [UserModule,AuctionModule,BidModule,ItemModule],
+  imports: [UserModule,AuctionModule,BidModule,AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

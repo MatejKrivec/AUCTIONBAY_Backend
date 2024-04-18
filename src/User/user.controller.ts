@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, HttpException, HttpStatus, Query } from '@nestjs/common';
 import { UserService } from './user.service';
 import { USER } from '@prisma/client';
 
@@ -6,10 +6,18 @@ import { USER } from '@prisma/client';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Get(':id')
+ /* @Get(':id')
   async getUser(@Param('id') id: string): Promise<USER | null> {
     return this.userService.user({ id: Number(id) });
-  }
+  }*/
+
+  @Get('login') 
+  async login(@Query('username') username: string,@Query('password') password: string): Promise<USER | null> {
+
+    const user = await this.userService.findOneByUsernameAndPassword(username, password);
+
+    return user;
+}
 
   @Get()
   async getUsers(): Promise<USER[]> {

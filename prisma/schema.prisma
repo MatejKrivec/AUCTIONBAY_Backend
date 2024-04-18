@@ -23,20 +23,14 @@ model USER{
 model AUCTION {
   auctionId     Int       @id @default(autoincrement())
   userId        Int
-  itemId        Int
-  startTime DateTime
-  endTime   DateTime
-}
-
-model ITEM {
-  itemId          Int       @id @default(autoincrement())
-  sellerId        Int
-  name            String
-  description     String
-  image           String
-  startingPrice   Float
-  maxPrice        Float
-  category        Category
+  name          String    
+  description   String    
+  image         String   
+  startingPrice Float
+  maxPrice      Float  
+  price         Float           
+  startTime     DateTime
+  endTime       DateTime
 }
 
 model BID {
@@ -48,12 +42,5 @@ model BID {
   bidDateTime   DateTime
 }
 
-enum Category {
-  ELECTRONICS
-  CLOTHING
-  BOOKS
-  FURNITURE
-  SPORTS
-  OTHER
-}
+
 

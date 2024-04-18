@@ -5,16 +5,30 @@ import { Prisma, USER } from "@prisma/client";
 
 @Injectable()
 export class UserService{
+    findOne(username: string) {
+        throw new Error('Method not implemented.');
+    }
     constructor(private prisma: PrismaService){}
     
-    async user(
-        userWhereUniqueInput: Prisma.USERWhereUniqueInput,
-      ): Promise<USER | null> {
+    /*async user(userWhereUniqueInput: Prisma.USERWhereUniqueInput,): Promise<USER | null> {
         return this.prisma.uSER.findUnique({
           where: userWhereUniqueInput,
         });
+      }*/
+
+
+      async findOneByUsernameAndPassword(username: string, password: string): Promise<USER | null> {
+        // Retrieve the user from the database that matches the provided username and password
+        const user = await this.prisma.uSER.findUnique({
+          where: {
+            username: username,
+            password: password, // Note: Passwords should be hashed and not stored in plain text
+          },
+        });
+      
+        return user || null; // Return the found user or null if no match is found
       }
-    
+
     async users(params: {
         skip?: number;
         take?: number;

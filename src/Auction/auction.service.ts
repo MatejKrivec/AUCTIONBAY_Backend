@@ -7,9 +7,9 @@ import { Prisma, AUCTION } from "@prisma/client";
 export class AuctionService{
     constructor(private prisma: PrismaService){}
 
-    async getAuction(Id: number): Promise<AUCTION | null> {
-        return this.prisma.aUCTION.findUnique({
-            where: {auctionId: Id}
+    async getAuction(Id: number): Promise<AUCTION[] | null> {
+        return this.prisma.aUCTION.findMany({
+            where: {userId: Id}
         })
     }
 

@@ -13,8 +13,9 @@ export class BidController{
     } 
 
     @Get(':id')
-    async getBid(@Param('id') bidId: number): Promise<BID | null>{
-        return this.bidService.getBid(bidId)
+    async getBid(@Param('id') bidId: string): Promise<BID[] | null>{
+        const id = parseInt(bidId, 10);
+        return this.bidService.getBid(id)
     } 
 
     @Post()

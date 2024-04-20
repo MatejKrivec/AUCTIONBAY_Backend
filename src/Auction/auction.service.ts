@@ -13,6 +13,16 @@ export class AuctionService{
         })
     }
 
+    async getAuctions(auctionId: number): Promise<AUCTION[] | null> {
+        return this.prisma.aUCTION.findMany({
+            where: {
+                userId: {
+                    not: auctionId
+                }
+            }
+        });
+    }
+
     async getAllAuctions(): Promise<AUCTION[]>{
         return this.prisma.aUCTION.findMany()
     }
@@ -36,4 +46,13 @@ export class AuctionService{
             where,
         })
     }
+
+    async patchAuction(params: { where: Prisma.AUCTIONWhereUniqueInput; data: Prisma.AUCTIONUpdateInput }): Promise<AUCTION> {
+        const { where, data } = params;
+        return this.prisma.aUCTION.update({
+            data,
+            where,
+        });
+    }
+    
 }

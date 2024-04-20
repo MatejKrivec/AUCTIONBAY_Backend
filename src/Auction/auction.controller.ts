@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, Patch } from '@nestjs/common';
 import { AuctionService } from './auction.service';
 import { AUCTION } from '@prisma/client';
 import { ParamsTokenFactory } from '@nestjs/core/pipes';
@@ -12,6 +12,12 @@ export class AuctionController{
     async getAuction(@Param('id') userId: string): Promise<AUCTION[] | null>{
         const id = parseInt(userId, 10);
         return this.auctionService.getAuction(id)
+    }
+
+    @Get('akcije/:id')
+    async getAuctions(@Param('id') userId: string): Promise<AUCTION[] | null>{
+        const id = parseInt(userId, 10);
+        return this.auctionService.getAuctions(id)
     }
 
 
@@ -33,6 +39,13 @@ export class AuctionController{
     @Put(':id')
     async updateAuction(@Param('id') id: string, @Body() auctionData: AUCTION): Promise<AUCTION>{
         return this.auctionService.updateAuction({
+            where: { auctionId: Number(id) },
+            data: auctionData,
+        })
+    }
+    @Patch(':id')
+    async patchAuction(@Param('id') id: string, @Body() auctionData: AUCTION): Promise<AUCTION>{
+        return this.auctionService.patchAuction({
             where: { auctionId: Number(id) },
             data: auctionData,
         })

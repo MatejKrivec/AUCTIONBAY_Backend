@@ -6,9 +6,9 @@ import { Prisma, BID } from "@prisma/client";
 export class BidService{
     constructor(private prisma: PrismaService){}
 
-    async getBid(id: number): Promise<BID | null>{
-        return this.prisma.bID.findUnique({
-            where: {bidId: id}
+    async getBid(id: number): Promise<BID[] | null>{
+        return this.prisma.bID.findMany({
+            where: {auctionId: id}
         })
     }
 

@@ -18,6 +18,7 @@ model USER{
   username String @unique
   email String @unique
   password String
+  profilePicture String?
 }
 
 model AUCTION {

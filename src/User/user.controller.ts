@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, HttpException, HttpStatus, Query } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, HttpException, HttpStatus, Query, Patch } from '@nestjs/common';
 import { UserService } from './user.service';
 import { USER } from '@prisma/client';
 
@@ -23,6 +23,14 @@ export class UserController {
   async getUsers(): Promise<USER[]> {
     return this.userService.users({});
   }
+  
+  @Get(':id')
+  async getUser(@Param('id') ID: string): Promise<USER> {
+    const id = parseInt(ID, 10);
+    return this.userService.getUserById(id);
+  }
+
+ 
 
   @Post()
   async createUser(@Body() userData: USER): Promise<USER> {
@@ -35,6 +43,17 @@ export class UserController {
     @Body() userData: USER,
   ): Promise<USER> {
     return this.userService.updateUser({
+      where: { id: Number(id) },
+      data: userData,
+    });
+  }
+
+  @Patch('posodobitev/:id') 
+  async posodobitevUser(
+    @Param('id') id: string,
+    @Body() userData: USER,
+  ): Promise<USER> {
+    return this.userService.posodobitevUser({
       where: { id: Number(id) },
       data: userData,
     });

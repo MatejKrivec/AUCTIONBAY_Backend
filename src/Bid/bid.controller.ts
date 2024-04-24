@@ -12,10 +12,15 @@ export class BidController{
         return this.bidService.getBids()
     } 
 
-    @Get(':id')
-    async getBid(@Param('id') bidId: string): Promise<BID[] | null>{
+    @Get('byAuctionId/:id')
+    async getBidByAuctionId(@Param('id') bidId: string): Promise<BID[] | null>{
         const id = parseInt(bidId, 10);
-        return this.bidService.getBid(id)
+        return this.bidService.getBidByAuctionId(id)
+    } 
+    @Get('byUserId/:id')
+    async getBidByUserId(@Param('id') bidId: string): Promise<BID[] | null>{
+        const id = parseInt(bidId, 10);
+        return this.bidService.getBidByUserId(id)
     } 
 
     @Post()

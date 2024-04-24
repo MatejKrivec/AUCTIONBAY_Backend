@@ -46,6 +46,10 @@ export class UserService{
         });
     }
 
+    async getUserById(id: number): Promise<USER> {
+      return this.prisma.uSER.findUnique({ where: { id } });
+    }
+
     async createUser(data: Prisma.USERCreateInput): Promise<USER> {
         return this.prisma.uSER.create({
           data,
@@ -53,6 +57,17 @@ export class UserService{
     }
 
     async updateUser(params: {
+        where: Prisma.USERWhereUniqueInput;
+        data: Prisma.USERUpdateInput;
+      }): Promise<USER> {
+        const { where, data } = params;
+        return this.prisma.uSER.update({
+          data,
+          where,
+        });
+      }
+
+      async posodobitevUser(params: {
         where: Prisma.USERWhereUniqueInput;
         data: Prisma.USERUpdateInput;
       }): Promise<USER> {

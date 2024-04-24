@@ -8,11 +8,19 @@ export class AuctionController{
     constructor(private readonly auctionService: AuctionService){}
 
 
+
+    @Get('one/:id')
+    async getOneAuction(@Param('id') userId: string): Promise<AUCTION | null>{
+        const id = parseInt(userId, 10);
+        return this.auctionService.getOneAuction(id)
+    }
+
     @Get(':id')
     async getAuction(@Param('id') userId: string): Promise<AUCTION[] | null>{
         const id = parseInt(userId, 10);
         return this.auctionService.getAuction(id)
     }
+
 
     @Get('akcije/:id')
     async getAuctions(@Param('id') userId: string): Promise<AUCTION[] | null>{

@@ -30,6 +30,12 @@ export class UserController {
     return this.userService.getUserById(id);
   }
 
+  @Post('validatePassword/:id')
+  async validatePassword(@Param('id') ID: string, @Body() body: { currentPassword: string }): Promise<boolean> {
+  const id = parseInt(ID, 10);
+  return this.userService.validatePassword(id, body.currentPassword);
+}
+
  
 
   @Post()

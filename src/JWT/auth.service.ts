@@ -29,19 +29,6 @@ export class AuthService {
     return this.jwtService.sign(payload);
   }
 
-  /*async validateUser(username: string, password: string): Promise<boolean> {
-    // Query the user from the database based on the username and password
-    const user = await this.userService.findOneByUsernameAndPassword(username, password);
-
-    // If no user found or password doesn't match, return false
-    if (!user || user.password !== password) {
-        return false;
-    }
-
-    // If user found and password matches, return true
-    return true;
-}*/
-
 async findOneByUsernameAndPassword(username: string, password: string): Promise<USER | null> {
   return this.prisma.uSER.findUnique({
       where: {

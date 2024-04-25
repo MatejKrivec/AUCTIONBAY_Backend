@@ -11,8 +11,8 @@ import { DecodeController } from './decode.controller';
 @Module({
   imports: [
     JwtModule.register({
-      secret: '12345', // Change this to your actual secret key
-      signOptions: { expiresIn: '1h' }, // Adjust expiration time as needed
+      secret: '12345', 
+      signOptions: { expiresIn: '1h' }, 
     }),
   ],
   providers: [AuthService, JwtStrategy, PrismaService],

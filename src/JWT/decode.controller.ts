@@ -9,12 +9,10 @@ export class DecodeController {
 
   @Post()
   decodeToken(@Body('token') token: string) {
-    //console.log('Request Body:', token); // Log the request body
     try {
       if (!token) {
         throw new HttpException('Token not provided', HttpStatus.BAD_REQUEST);
       }
-      //const decoded = this.authService.verifyToken(token);
       const decoded = this.authService.verifyToken(token) as JwtPayload;
       return {
         id: decoded.sub,

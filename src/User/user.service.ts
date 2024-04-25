@@ -18,15 +18,14 @@ export class UserService{
 
 
       async findOneByUsernameAndPassword(username: string, password: string): Promise<USER | null> {
-        // Retrieve the user from the database that matches the provided username and password
         const user = await this.prisma.uSER.findUnique({
           where: {
             username: username,
-            password: password, // Note: Passwords should be hashed and not stored in plain text
+            password: password, 
           },
         });
       
-        return user || null; // Return the found user or null if no match is found
+        return user || null; 
       }
 
     async users(params: {
@@ -48,6 +47,17 @@ export class UserService{
 
     async getUserById(id: number): Promise<USER> {
       return this.prisma.uSER.findUnique({ where: { id } });
+    }
+
+    async validatePassword(id: number, currentPassword: string): Promise<boolean> {
+      const user = await this.prisma.uSER.findUnique({ where: { id } });
+      if (user) {
+        const isPasswordValid = (currentPassword === user.password);
+        return isPasswordValid;
+      } else {
+        console.error('User not found'); 
+        return false; 
+      }
     }
 
     async createUser(data: Prisma.USERCreateInput): Promise<USER> {
@@ -85,4 +95,8 @@ export class UserService{
       }
 
     
+}
+
+function compare(currentPassword: string, password: string) {
+  throw new Error("Function not implemented.");
 }

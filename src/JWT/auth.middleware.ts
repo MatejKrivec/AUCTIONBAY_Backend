@@ -1,8 +1,6 @@
-// auth.middleware.ts
 import { Injectable, NestMiddleware, UnauthorizedException } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { AuthService } from './auth.service';
-import { USER } from '@prisma/client';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {

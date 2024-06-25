@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, HttpException, HttpStatus, Query, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, Query, Patch, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { USER } from '@prisma/client';
+import { JwtAuthGuard } from 'src/JWT/jwt-auth.guard';
 
 @Controller('users')
 export class UserController {
@@ -20,17 +21,20 @@ export class UserController {
 }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   async getUsers(): Promise<USER[]> {
     return this.userService.users({});
   }
   
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   async getUser(@Param('id') ID: string): Promise<USER> {
     const id = parseInt(ID, 10);
     return this.userService.getUserById(id);
   }
 
   @Post('validatePassword/:id')
+  @UseGuards(JwtAuthGuard)
   async validatePassword(@Param('id') ID: string, @Body() body: { currentPassword: string }): Promise<boolean> {
   const id = parseInt(ID, 10);
   return this.userService.validatePassword(id, body.currentPassword);
@@ -43,7 +47,7 @@ export class UserController {
     return this.userService.createUser(userData);
   }
 
-  @Put(':id')
+  /*@Put(':id')
   async updateUser(
     @Param('id') id: string,
     @Body() userData: USER,
@@ -52,9 +56,10 @@ export class UserController {
       where: { id: Number(id) },
       data: userData,
     });
-  }
+  }*/
 
   @Patch('posodobitev/:id') 
+  @UseGuards(JwtAuthGuard)
   async posodobitevUser(
     @Param('id') id: string,
     @Body() userData: USER,

@@ -1,16 +1,13 @@
-// auth.service.ts
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/Prisma/prisma.service';
-import { Prisma, USER } from '@prisma/client';
-import { UserService } from 'src/User/user.service';
-//import { UserService } from 'src/User/user.service';
+import { USER } from '@prisma/client';
 import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class AuthService {
 
-  private readonly jwtSecret = '12345';
+  private readonly jwtSecret = process.env.JWT_TOKEN_SECRET_KEY;
 
   verifyToken(token: string) {
     try {

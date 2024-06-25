@@ -1,5 +1,4 @@
-import { Body, Controller, Get, Headers, HttpException, HttpStatus, Post } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtPayload } from 'jsonwebtoken';
 
